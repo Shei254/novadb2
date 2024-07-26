@@ -1,0 +1,6 @@
+RUN_INDEX="yes"
+RUN_NODE="yes"
+CONF_INDEX="/etc/novadbi.conf"
+CONF_NODE="/etc/novadbd.conf"
+DATA_INDEX="/tmp"
+DATA_NODE="/tmp"

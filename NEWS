@@ -1,0 +1,312 @@
+* [2021/03/11] 1.3.4 release
+ * feature updates
+  - Add option to output stderr log to the cluster-replication-mode
+  - Forward write queries also according to the cluster-replication-mode ( in addition to read requests ) 
+
+* [2019/02/19] 1.3.3 release
+
+ * feature updates
+  - Improve proxy-performance
+  - Improve USAGE.md and COMMAND_MANUAL.md
+
+* [2016/05/09] 1.3.2 release
+
+ * bug fixes
+  - connection_tcp: Clear buffers when connection closed.
+
+* [2016/03/01] 1.3.1 release
+
+ * feature updates
+  - Add "node_map_version" parameter to "stats"
+
+* [2015/03/25] 1.3.0 release
+
+ * feature updates
+  - Forward read queries also according to the cluster-replication-mode
+
+ * bug fixes
+  - Fix time_watcher performance
+
+* [2014/12/17] 1.2.1 release
+
+ * feature updates
+   - Add bwlimit to op_dump_key
+
+ * bug fixes
+   - Fix time_watcher options
+   - Fix to build with clang
+   - Fix op_set binary parser to enable behavior_cas flag
+
+* [2014/11/14] 1.2.0 release
+
+ * feature updates
+   - Added storage access time watching feature
+   - Replication over cluster
+
+ * bug fixes
+   - Avoid to close the already closed socket.
+   - Fix bwlimit when creating new partition
+   - Fix initial value of epoll socket
+   - Fix pthread_cond_wait() in zookeeper_lock::_assure_session_connected()
+   - Fix resource leak of server socket
+   - Fix some initialization
+   - Fix the race condition in thread class
+   - Fix zookeeper_lock::_assure_session_connected()
+   - Fixed socket condition add_epoll_socket and add_kqueue_socket
+   - Modified include guards to fit them to the C++ standard naming convention.
+   - Skip proxy when destination node is down
+
+ * others
+   - Support TravisCI
+
+* [2014/09/01] 1.1.1 release
+
+ * bug fixes
+   - Avoid to close the already closed socket
+   - Skip proxy request when destination node is down
+   - Fix the resource leaks of socket in server
+   - Fix some compile warnings
+   - Fix some race conditions in thread.cc
+   - Check dynamic_cast result
+   - Fix pthread_cond_wait() in zookeeper_lock::_assure_session_connected()
+   - Add initialization of cluster#node
+   - Remove some deadcode
+   - Add null check before the code with the potential null access
+   - Exit when IO-buffer is unsafe
+   - Fix memory leak of proxy in op_parser_text
+
+* [2014/05/14] 1.1.0 release
+
+ * feature updates
+   - Redundant index servers
+   - Add coordinator classes to store and restore the state of the index server
+     - Add coordinator class for handling the state of the index server
+     - Move the code for storing and restoring flare.xml from cluster to file_coordinator
+     - Add zookeeper_coordinator class to store flare.xml into a zookeeper cluster
+     - Add --index-db option to novadbi to specify a database for storing flare.xml
+     - Add --index-servers option to novadbd to specify multiple index servers
+     - Add connect_retry_limit parameter to connection_tcp to avoid retrying too much in open()
+   - Improved statistics information
+   - Automatically node down when storage error happens
+
+ * bug fixes
+   - Modified include guards to fit them to the C++ standard naming convention.
+   - Remove unnecessary null check and avoid double free
+
+* [2013/12/20] 1.0.18-2 release
+
+ * feature updates
+   - Allow combination of reconstruct-interval and reconstruct-bwlimit
+
+ * bug fixes
+   - Fix a crash when a log message contains a format string
+   - Fixed invalid input of set command and added test cases
+   - Safety dump operation
+
+* [2013/10/17] 1.0.18 release
+
+  * feature updates
+    - Skip memory tests with valgrind < 3.8
+    - Do not build tests when packaging
+    - Switched from simple/adler32 to jenkins/murmur
+    - Unified packaging for debian and ubuntu
+    - Made core dump file size limit configurable
+
+  * bug fixes
+    - Fix for deletion replication bug
+    - Fixed CAS behavior when using defered deletion
+    - Fixed compilation warning
+    - Skip version checks on expired and removed items
+    - Added version checks to storage tests
+    - Ignore version on touch commands
+    - Always store the last version number on deletion
+    - Fixed build on Ubuntu
+    - Monitor failover fix
+    - Fix handler_monitor to avoid deadlock caused by simultaneous node down events
+    - Fixes for Ubuntu Saucy Salamander (13.10)
+    - Ignore new test-driver script
+    - Fixed erroneous memory leak report
+
+* [2013/04/10] 1.0.17-2 release
+
+  * feature updates
+    - novadbi: sanity check the thread_type value in flare.xml
+
+  * bug fixes
+    - fixed a duplicate thread id issue
+
+* [2012/02/05] 1.0.17 release
+
+  * new features:
+    - added support for Kyoto cabinet
+    - binary protocol implementation and input tests
+    - touch/gat implementation
+    - migration from gethostbyname to getaddrinfo
+    - integrated valgrind memory tests
+    - added over 2000 unit tests
+ 
+  * bug fixes:
+    - various fixes under BSD
+    - append does not reset the stored flag anymore
+    - fixes for input validation
+
+* [2012/12/12] 1.0.16-2 release
+
+  * bug fixes
+    - fix for a rare race condition in storage_tch.cc which can lead dump operations to end prematurely, thus causing replication to fail
+
+* [2012/10/16] 1.0.16 release
+
+  * feature updates
+    - added --noreply-window-limit (default=0) for high latency network
+
+  * bug fixes
+    - fix connection::readline() to check the last character of a read buffer
+    - fix thread safety of utility functions
+    - fix reconstruction-bwlimit option
+
+* [2012/03/24] 1.0.15 release
+
+  * feature updates
+    - added --key-hash-algorithm option (default=simple)
+
+  * bug fixes
+    - fix wrong post proxy destination during dynamic patition creation.
+    - fix unintentional thread triggering.
+
+* [2011/08/09] 1.0.14 release
+
+  * feature updates
+    - added 'stats threads queue' op
+    - added 'shutdown' op (for graceful shutdown)
+    - added --max-total-thread-queue option (default=0 (unlimited))
+    - added --proxy-prior-netmask option
+    - added --storage-dfunit (support for dynamic defragmentation)
+
+  * bug fixes
+    - fix double unlock (which causes dead lock)
+    - fix dump error handling (tc iteration returns error in some rare cases)
+
+* [2011/06/08] 1.0.13 release
+
+  * feature updates
+    - added 'show variables' op
+    - added reconstruction-bwlimit option (node server only, in KB)
+
+  * bug fixes
+    - set default values to keep compatibility w/ older index servers
+    - fix bug of replication inconsistency
+    - fix possible memory leaks
+    - fix possible node map corruption, happens when non-existent nodes are passed to remove_node()
+    - fix segfault (cased by multi get w/ same keys (like "get key1 key1 key1"), w/ concurrent expiration)
+
+  (thanks to sejima)
+
+* [2011/03/01] 1.0.12 release
+
+  * bug fixes (thx to sejima)
+    - fix replication bug (esp. important when reconstructing nodes)
+    - fix overriding error code, in keys op.
+
+* [2010/11/20] 1.0.11 release
+
+  * feature updates
+    - added --partition-size option (default=1024)
+    - added --partition-modular-virtual option (default=4096)
+
+  * bug fixes
+    - fix possible dead locks (could happen when activating new master node under heavy load)
+    - uppress bogus master reconstruction, happens when slave is promoted to master
+
+* [2010/11/08] 1.0.10 release
+
+  * feature updates
+    - now new master shift prepare -> ready after reconstruction completed
+    - added tokyocabinet b+tree storage support
+    - added keys op (available only w/ storage-type=tcb)
+    - added "behind" parameter to "stats threads" (seconds behind from the oldest queue)
+    - added "stats threads slave" to show only replication threads
+    - added replication-type option (support semi-sync replication)
+    - add autogen.sh
+  
+  * bug fixes
+    - fix reload op in init.d scripts
+    - fix segfault caused by "stats threads" under heavy load
+    - fixes for FreeBSD ports (patch from <nork@FreeBSD.org>)
+
+  * misc changes
+    - use CppCutter as a testing framework
+
+* [2009/10/09] 1.0.9 release
+
+  * feature updates
+    - mandatorily proxy requests when balance is set to 0, even if role is slave and state is active and partition is set to [target]
+    - added reconstruction-interval option (node server only, in usec)
+      - wait for N usec for each entry update when reconstructing node (this will reduce load of master nodes)
+    - added back-log option
+    - added network read timeout option (net-read-timeout = [sec])
+    - added unix domain socket support (option "server-socket" is now available)
+    - added --partition-type option (default=modular)
+    - added --partition-modular-hint option (default=1, this is *very* important when upgrading 1.0.9 or later if you already have 2 or more partition)
+    - added dump_key op
+    - added meta op
+
+  * bug fixes
+    - fix bug in "node role" op (could not shift slave node balance to 0)
+    - fix xml format bug (thx to patch from kazuhiko)
+    - re-set resouce limit when received sighup (this will fix shortage of fd after you dynamically update max-connection)
+    - fix segfault caused by removing a node
+
+  * misc changes
+    - remove umask(0) (thx to patch from kazuhiko)
+    - try to use epoll if available
+
+* [2009/02/03] 1.0.8 release
+
+  * bug fixes
+    - added lock around non-thread-safe function calls (fix random infinite loop and segfaults)
+
+* [2009/01/26] 1.0.7 release
+
+  * bug fixes
+    - fix problem caused by thread-id overflow
+
+* [2009/01/22] 1.0.6 release
+
+  * bug fixes
+    - fix random assertion errors (race condition around thread pool)
+    - purge header caches
+
+* [2008/12/04] 1.0.5 release
+
+  * bug fixes
+    - socket I/O tunings
+
+* [2008/12/03] 1.0.4 release
+
+  * bug fixes
+    - fix mysql replication bugs
+    - fix build w/out mysql replication
+    - fix EAGAIN handlings
+
+* [2008/11/28] 1.0.3 release
+
+  * bug fixes
+    - fix mysql replication bugs
+
+* [2008/11/28] 1.0.2 release
+
+  * feature updates
+    - added mysql replication feature (w/ --enable-mysql-replication) (very very experimental)
+
+* [2008/11/27] 1.0.1 release
+
+  * feature updates
+    - try node sync op even if node seems to be down
+
+  * bug fixes
+    - fix replication in case of master preparation
+
+* [2008/11/25] 1.0.0 release
+
+  * initial release
